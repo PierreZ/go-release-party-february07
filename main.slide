@@ -1,0 +1,205 @@
+Go 1.8 Release Party
+Finist{Go,JUG}
+21 Feb 2017
+Tags: FinistGDG, Golang, GoReleaseParty
+
+Pierre Zemb
+contact@pierrezemb.fr
+https://pierrezemb.fr
+@PierreZ
+
+* Go 1.8 is released!
+
+.image images/rocket.jpg _ 350
+
+
+Go 1.8 was released on 16 February 2017
+
+.link http://golang.org/doc/go1.8 Go 1.8 Release Notes
+.link https://t.co/cIEsMPeY0k Go 1.8 Announcement
+
+
+
+* But what is Go ?
+
+"Go is an open source programming language that makes it easy to build simple, reliable, and efficient software."
+
+.link https://golang.org/ https://golang.org/
+
+
+* The origin of Go
+
+Created by:
+
+- Ken Thompson (UNIX/B)
+- Rob Pike (Plan 9/UTF-8)
+- Robert Griesemer (Moteur V8 JavaScript/GFS)
+
+.image images/google.jpg 250 _
+.caption (From left to right) Robert Griesemer, Rob Pike and Ken Thompson
+.caption [[http://cse360fall13.wikispaces.asu.edu/Google%20Go][http://cse360fall13.wikispaces.asu.edu/Google%20Go]]
+
+
+* Advantages of Go
+
+- Statically typed language
+- Easy to read and write
+- Go's GC is fast
+- Standard library
+- Multiple architectures
+- Cross-compilation
+- Goroutines & channels
+
+* Go's hello World 1/2
+
+.play samples/hello.go
+.image images/gopher.jpg 200 _
+
+* How to compile
+
+$ go build
+
+// Or to use cross-compilation
+
+$ GOOS=windows go build
+
+* Go's tooling
+
+- go build
+- go install
+- go get
+- go doc fmt Println
+- go build -race
+
+* For what types of project Go is good? Green threads (or goroutines)
+.play samples/goroutines1.go
+
+* Communication between goroutines are easy
+.play samples/goroutines2.go
+
+* For what types of project Go is good? API
+
+.play samples/webserver.go
+.link http://127.0.0.1:7777/hello http://127.0.0.1:7777/hello
+
+* For what types of project Go is good? I/O stuff
+
+.code samples/io.go
+
+
+* What's changed?
+
+So, what's happened in the last six months?
+
+- Performance
+- Compiler changes
+- Runtime changes
+- Changes to the standard library
+
+* Running performance
+
+.image images/twitterPerformance.png 500 _
+
+* Performance of the GC: Go 1.5
+.image https://talks.golang.org/2017/state-of-go/img/gct1.png 500 _
+* Performance of the GC: Go 1.6
+.image https://talks.golang.org/2017/state-of-go/img/gct3.png 500 _
+* Performance of the GC: Go 1.8 beta 1
+.image https://talks.golang.org/2017/state-of-go/img/gct5.png 500 _
+
+* Compiler changes: SSA everywhere!
+
+The SSA backend:
+- generates more compact and efficient code
+- is a better platform for optimizations
+
+For 32-bit ARM systems this means 20-30% speed up!
+
+For others (where SSA was used already) gains are 0-10%.
+
+* Compiler changes: new platform
+
+32-bit MIPS
+
+- big-endian (linux/mips)
+- little-endian (linux/mipsle) - requires Floating Point Unit
+Go on DragonFly BSD now requires DragonFly 4.4.4+.
+Go on OpenBSD now requires OpenBSD 5.9+.
+
+Plan 9 is now better!
+
+* Runtime changes: Plugins !
+
+Go now supports a “plugin” build mode for generating plugins written in Go, and a new plugin package for loading such plugins at run time.
+Plugin support is currently only available on Linux.
+
+.play samples/plugin.go
+
+* Demo (sort of)
+.video images/plugins.mp4 video/mp4 400 600
+Credits to Francesc Campoy
+.link https://github.com/campoy/golang-plugins https://github.com/campoy/golang-plugins
+
+* Runtime changes: Conversion rules !
+
+.play samples/conversion.go
+
+* Changes to the standard library: Sorting
+
+Exercise:
+Given a slice of Person
+.code samples/person1.go
+Print the slice sorted by name, age.
+.code samples/person2.go
+Easy, right?
+
+
+* Changes to the standard library: Sorting
+Well, no...
+.code samples/person3.go
+
+
+* Changes to the standard library: Sorting
+Now with Go 1.8, you can simply write this:
+
+.code samples/person4.go
+
+* Changes to the standard library: HTTP/2 Push
+
+.image https://blog.cloudflare.com/content/images/2015/12/image_1.png 500 _
+
+* Changes to the standard library: HTTP/2 Push
+
+.code samples/push.go
+
+* Changes to the standard library: HTTP Server Graceful Shutdown
+A long requested feature, graceful shutdown of a http.Server was added in Go 1.8.
+Call Shutdown when a signal is received:
+.code samples/shutdown.go
+
+* Changes to the standard library: HTTP Server Graceful Shutdown
+Check why the server stopped.
+.code samples/shutdown2.go
+
+
+* A couple more changes too
+
+.image https://talks.golang.org/2017/state-of-go/img/more.png _ 1000
+.caption [[https://beta.golang.org/doc/go1.8][Go 1.8 release notes]]
+
+* But some issues...
+.image images/goissue.png 500 _
+
+* One more thing: Official dependency management tool
+
+Finally!
+
+Peter Bourgon, Edward Muller, Sam Boyer, Jess Frazelle, and Steve Francia have been working on an _official_ dependency management tool, `dep`.
+
+If you're used to Glide or govendor, you won't be too surprised.
+
+.link https://groups.google.com/forum/#!topic/go-package-management/et1qFUjrkP4 Mailing List Announcement
+
+It's described as _pre_alpha_ at the moment, but you should check it out, and let them know what you think.
+
+.link https://github.com/golang/dep
