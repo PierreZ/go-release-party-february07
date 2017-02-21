@@ -1,4 +1,4 @@
-Go 1.8 Release Party
+Go 1.8 Release Party #GoReleaseParty
 Finist{Go,JUG}
 21 Feb 2017
 Tags: FinistGDG, Golang, GoReleaseParty
@@ -17,8 +17,6 @@ Go 1.8 was released on 16 February 2017
 
 .link http://golang.org/doc/go1.8 Go 1.8 Release Notes
 .link https://t.co/cIEsMPeY0k Go 1.8 Announcement
-
-
 
 * But what is Go ?
 
@@ -46,9 +44,10 @@ Created by:
 - Easy to read and write
 - Go's GC is fast
 - Standard library
-- Multiple architectures
+- Multiples architectures and OS available
 - Cross-compilation
 - Goroutines & channels
+- Vastly used in Open-source/companies
 
 * Go's hello World 1/2
 
@@ -66,10 +65,17 @@ $ GOOS=windows go build
 * Go's tooling
 
 - go build
+- go build -race
 - go install
 - go get
+- go test
 - go doc fmt Println
-- go build -race
+
+* For what types of project Go is good?
+
+- When you need green threads
+- When you want to create an API
+- When you need to manipulate I/O
 
 * For what types of project Go is good? Green threads (or goroutines)
 .play samples/goroutines1.go
